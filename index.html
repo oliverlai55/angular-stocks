@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="stocksApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-git2.min.js"></script>
+	<script src="js/angular2.min.js"></script>
+	<script type="text/javascript" src="controller.js"></script>
+	<script type="text/javascript" src="js/angular-route.min.js"></script>
+</head>
+<body ng-controller="stocksController">
+	<div id="wrapper">
+		<!-- Load all stocks in the left hand rail -->
+		<div id="left">
+			<form ng-submit="getStocks()">
+				<div id="get-stock-text">What stocks would you like to search for? Separate with a comma (i.e. goog,msft,yhoo):
+				</div>
+				<div id="get-stock-input">
+					<input type="text" ng-model="userStocks">
+				</div>
+			</form>
+			<div id="{{stock.Symbol}}" ng-click="loadStock(stock)" ng-repeat="stock in listOfStocks">
+				<div class="company-name">{{stock.Name}}</div>
+				<div class="stock-change">{{stock.Change}}</div>
+				<div class="stock-symbol">{{stock.Symbol}}</div>
+
+			</div>
+		</div>
+
+		<!-- Show the middle column with the stock detail inside -->
+		<div id="right-single-stock">
+			<div id="stock-filter">
+				Filter: <input type="text" ng-model="stockFilter">
+				<!-- Have Angular create one dive for each property in this stock -->
+				<div id="" ng-repeat="detail in dataList | filter:stockFilter">
+					<div class="stock-properties">
+						<div class="detail-prop">{{detail.prop}}</div>
+						<div class="prop-value">{{detail.value}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
